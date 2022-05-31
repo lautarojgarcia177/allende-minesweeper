@@ -9,7 +9,9 @@ import { environment } from '../../environments/environment';
 
 
 export interface State {
-
+  board: any,
+  gameOver: boolean,
+  timePlayedInMilliSeconds: number,
 }
 
 export const reducers: ActionReducerMap<State> = {

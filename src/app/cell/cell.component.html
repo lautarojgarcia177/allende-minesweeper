@@ -1,0 +1,4 @@
+<button>
+    <fa-icon [icon]="mineIcon" *ngIf="cell.isMine"></fa-icon>
+    <span *ngIf="cell.adjacentMines">{{cell.adjacentMines}}</span>
+</button>

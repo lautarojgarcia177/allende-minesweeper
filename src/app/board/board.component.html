@@ -1,1 +1,8 @@
-<p>board works!</p>
+
+<mat-grid-list cols="9" gutterSize="3">
+    <ng-container *ngFor="let column of map">
+        <mat-grid-tile *ngFor="let cell of column">
+            <allende-minesweeper-cell [cell]="cell"></allende-minesweeper-cell>
+        </mat-grid-tile>
+    </ng-container>
+  </mat-grid-list>
