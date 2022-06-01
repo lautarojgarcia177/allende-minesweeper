@@ -62,6 +62,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         }
       }
     }
+    this.gameService.checkIfWon(this.map);
   }
 
   revealAdjacentNonMineCells(cell: Cell): void {

@@ -125,4 +125,13 @@ export class GameService {
   openWinDialog(): void {
     const dialogRef = this.dialog.open(WinModalComponent, { data: { timeSpentInMilliseconds: 10} });
   }
+
+  checkIfWon(map: Array<Array<Cell>>): void {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (!map[i][j].isRevealed && !map[i][j].isMine) return;
+      }
+    }
+    this.openWinDialog();
+  }
 }
