@@ -11,13 +11,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { StatusBarComponent } from './status-bar/status-bar.component';
+import { ClockComponent } from './clock/clock.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     CellComponent,
-    StatusBarComponent
+    StatusBarComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,

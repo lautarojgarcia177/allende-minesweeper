@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { faLandMineOn } from '@fortawesome/free-solid-svg-icons';
+import { faLandMineOn, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { Cell } from '../interfaces';
 
 @Component({
@@ -13,6 +13,8 @@ export class CellComponent implements OnInit {
   @Output() cellClicked = new EventEmitter<Cell>() ;
 
   public mineIcon = faLandMineOn;
+  public flagIcon = faFlag;
+  public isFlagged = false;
   public isGameOver = false;
 
   constructor() { }
@@ -23,6 +25,11 @@ export class CellComponent implements OnInit {
   onCellClick() {
     this.cell.isRevealed = true;
     this.cellClicked.emit(this.cell);
+  }
+
+  onCellRightClick() {
+    this.isFlagged = !this.isFlagged;
+    return false;
   }
 
 }

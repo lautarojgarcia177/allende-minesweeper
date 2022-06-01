@@ -1,11 +1,21 @@
-<div class="mt-1 d-flex justify-content-evenly">
-    <button
-      mat-icon-button
-      aria-label="start over"
-      style="font-size: 35px"
-      class="pb-5"
-      (click)="onStartGameOverClick()"
-    >
-      <fa-icon [icon]="smileIcon"></fa-icon>
-    </button>
+<div class="mt-1 container-fluid" style="width: 450px;">
+    <div class="row">
+        <div class="col">
+            <allende-minesweeper-clock></allende-minesweeper-clock>
+        </div>
+        <div class="col">
+            <button
+              mat-icon-button
+              aria-label="start over"
+              style="font-size: 35px"
+              class="pb-5"
+              (click)="onStartGameOverClick()"
+            >
+              <fa-icon [icon]="smileIcon"></fa-icon>
+            </button>
+        </div>
+        <div class="col">
+            <p>Rigth click to put a flag</p>
+        </div>
+    </div>
 </div>
