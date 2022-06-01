@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Coordinates } from "../interfaces";
+import { Coordinates } from "src/app/game/interfaces";
 class Cell implements Cell {
   constructor(
     public coordinates: Coordinates,

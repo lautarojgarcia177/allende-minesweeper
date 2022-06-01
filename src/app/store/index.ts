@@ -6,16 +6,12 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-
-
-export interface State {
-  board: any,
-  gameOver: boolean,
-  timePlayedInMilliSeconds: number,
-}
+import { createReducer } from '@ngrx/store';
+import { State } from './state';
+import { gameOverReducer } from './reducers';
 
 export const reducers: ActionReducerMap<State> = {
-
+  isGameOver: gameOverReducer
 };
 
 

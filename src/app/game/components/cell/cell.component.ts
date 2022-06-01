@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faLandMineOn, faFlag } from '@fortawesome/free-solid-svg-icons';
-import { Cell } from '../game/interfaces';
+import { Cell } from '../../interfaces';
 
 @Component({
   selector: 'allende-minesweeper-cell',
