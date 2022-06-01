@@ -1,14 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Coordinates } from "src/app/game/interfaces";
-class Cell implements Cell {
-  constructor(
-    public coordinates: Coordinates,
-    public adjacentMines = 0,
-    public isMine = false,
-    public isRevealed = false,
-    public isFlagged = false,
-  ) {}
-}
+import { ICoordinates } from "src/app/game/interfaces";
+import { Store } from '@ngrx/store';
+import * as actions from '../../../store/actions';
+import { Cell } from "../../classes";
+import { GameService } from '../../game.service';
 
 @Component({
   selector: "allende-minesweeper-board",
@@ -20,116 +15,25 @@ export class BoardComponent implements OnInit {
 
   isGameOver = false;
 
-  constructor() {}
+  constructor(private store: Store, private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.map = this.generateRandomMap();
-    console.log("map", this.map);
+    
   }
 
-  generateRandomMap(): Array<Array<Cell>> {
-    // Generate cells
-    const randomMap = [[], [], [], [], [], [], [], [], []];
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        randomMap[i].push(new Cell({ x: i, y: j }));
-      }
-    }
-    // Generate mines
-    const minesLocations = [];
-    while (minesLocations.length < 10) {
-      let location = this.generateRandomCoordinates();
-      if (
-        !minesLocations.some(
-          (mineLocation) =>
-            mineLocation.x === location.x && mineLocation.y === location.y
-        )
-      ) {
-        minesLocations.push(location);
-      }
-    }
-    // Add mines to map
-    for (let mineLocation of minesLocations) {
-      randomMap[mineLocation.x][mineLocation.y].isMine = true;
-    }
-    // Calculate adjacent mines for each cell
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
-        randomMap[i][j].adjacentMines = this.calculateAdjacentMines(
-          { x: i, y: j },
-          randomMap
-        );
-      }
-    }
-    return randomMap;
-  }
-
-  generateRandomCoordinates(): Coordinates {
-    return {
-      x: Math.floor(Math.random() * 9),
-      y: Math.floor(Math.random() * 9),
-    };
-  }
-
-  calculateAdjacentMines(
-    coordinates: Coordinates,
-    map: Array<Array<Cell>>
-  ): number {
-    let adjacentMines = 0;
-    if (
-      map[coordinates.x + 1] &&
-      map[coordinates.x + 1][coordinates.y] &&
-      map[coordinates.x + 1][coordinates.y].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x + 1] &&
-      map[coordinates.x + 1][coordinates.y + 1] &&
-      map[coordinates.x + 1][coordinates.y + 1].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x + 1] &&
-      map[coordinates.x + 1][coordinates.y - 1] &&
-      map[coordinates.x + 1][coordinates.y - 1].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x - 1] &&
-      map[coordinates.x - 1][coordinates.y] &&
-      map[coordinates.x - 1][coordinates.y].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x - 1] &&
-      map[coordinates.x - 1][coordinates.y + 1] &&
-      map[coordinates.x - 1][coordinates.y + 1].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x - 1] &&
-      map[coordinates.x - 1][coordinates.y - 1] &&
-      map[coordinates.x - 1][coordinates.y - 1].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x] &&
-      map[coordinates.x][coordinates.y + 1] &&
-      map[coordinates.x][coordinates.y + 1].isMine
-    )
-      adjacentMines++;
-    if (
-      map[coordinates.x] &&
-      map[coordinates.x][coordinates.y - 1] &&
-      map[coordinates.x][coordinates.y - 1].isMine
-    )
-      adjacentMines++;
-    return adjacentMines;
+  startGame(): void {
+    this.map = this.gameService.generateRandomMap();
   }
 
   onBoardCellClick(cell) {
     if (cell.isMine) {
-      this.isGameOver = true;
+      this.store.dispatch(actions.gameOverAction());
+      // TODO: Effect for game end
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (this.map[i][j].isMine) this.map[i][j].isRevealed = true;
+        }
+      }
       return;
     }
     this.revealAdjacentNonMineCells(cell);

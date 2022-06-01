@@ -1,5 +1,5 @@
-<button (click)="onCellClick()" (contextmenu)="onCellRightClick()" [class.revealed]="cell.isRevealed">
+<button (click)="onCellClick()" (contextmenu)="onCellRightClick()" [class.revealed]="cell.isRevealed" [class.bg__mine]="cell.isMine">
     <fa-icon [icon]="mineIcon" *ngIf="cell.isMine && cell.isRevealed"></fa-icon>
-    <span *ngIf="(cell.adjacentMines && cell.isRevealed && !cell.isMine) || isGameOver">{{cell.adjacentMines}}</span>
+    <span *ngIf="cell.adjacentMines && cell.isRevealed && !cell.isMine">{{cell.adjacentMines}}</span>
     <fa-icon [icon]="flagIcon" *ngIf="!cell.isRevealed && isFlagged"></fa-icon>
 </button>

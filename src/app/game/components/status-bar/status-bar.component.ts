@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
+import { startGameAction } from 'src/app/store/actions';
 
 @Component({
   selector: 'allende-minesweeper-status-bar',
@@ -10,13 +12,13 @@ export class StatusBarComponent implements OnInit {
 
   smileIcon = faFaceSmile;
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
   onStartGameOverClick() {
-    
+    this.store.dispatch(startGameAction());
   }
 
 }

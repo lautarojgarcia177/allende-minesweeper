@@ -6,4 +6,7 @@ button {
 
 .revealed {
     background-color: aquamarine;
+    &.bg__mine {
+        background-color: indianred;
+    }
 }
