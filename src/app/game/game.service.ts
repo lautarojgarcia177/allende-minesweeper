@@ -6,12 +6,17 @@ import { resetMapAction } from "../store/actions";
 import { Cell } from "./classes";
 import { ICell, ICoordinates } from "./interfaces";
 import { WinModalComponent } from './components/win-modal/win-modal.component';
+import {Howl, Howler} from 'howler';
 
 @Injectable({
   providedIn: "root",
 })
 export class GameService {
   startTimerSubject = new Subject();
+
+  winSound = new Howl({
+    src: ['assets/audio/270319__littlerobotsoundfactory__jingle-win-01.wav']
+  })
 
   constructor(private store: Store, public dialog: MatDialog) {}
 
@@ -132,6 +137,7 @@ export class GameService {
         if (!map[i][j].isRevealed && !map[i][j].isMine) return;
       }
     }
+    this.winSound.play();
     this.openWinDialog();
   }
 }

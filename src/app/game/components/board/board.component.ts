@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ICoordinates } from "src/app/game/interfaces";
 import { Store } from "@ngrx/store";
 import * as actions from "../../../store/actions";
 import { Cell } from "../../classes";
@@ -7,6 +6,7 @@ import { GameService } from "../../game.service";
 import { selectInitialMap } from "../../../store/selectors";
 import { Subscription } from "rxjs";
 import { cloneDeep } from 'lodash';
+import {Howl, Howler} from 'howler';
 
 @Component({
   selector: "allende-minesweeper-board",
@@ -17,6 +17,13 @@ export class BoardComponent implements OnInit, OnDestroy {
   private map$ = this.store.select(selectInitialMap);
   private mapSubscription: Subscription;
   map: Array<Array<Cell>>;
+
+  loseSound = new Howl({
+    src: ['assets/audio/157218__adamweeden__video-game-die-or-lose-life.flac']
+  });
+  clickCellSound = new Howl({
+    src: ['assets/audio/530776__rickplayer__select.mp3']
+  });
 
   isGameOver = false;
 
@@ -39,14 +46,18 @@ export class BoardComponent implements OnInit, OnDestroy {
   onBoardCellClick(cell) {
     if (cell.isMine) {
       this.store.dispatch(actions.gameOverAction());
-      // TODO: Effect for game end
+      // Reveal all mines
       for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
           if (this.map[i][j].isMine) this.map[i][j].isRevealed = true;
         }
       }
+      // Play lose sound
+      this.loseSound.play();
       return;
     }
+    // Play click cell sound
+    this.clickCellSound.play();
     this.revealAdjacentNonMineCells(cell);
     // reveal adjacent cells of cells with no adjacent mines
     for (let k = 0; k < 81; k++) {

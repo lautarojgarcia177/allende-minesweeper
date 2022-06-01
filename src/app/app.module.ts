@@ -8,13 +8,14 @@ import { ReactiveComponentModule } from '@ngrx/component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers, metaReducers } from './store';
 import { environment } from '../environments/environment';
 import * as components from './game/components';
 import { EffectsModule } from '@ngrx/effects';
 import { StartGameEffect } from './store/effects';
-import {MatDialogModule} from '@angular/material/dialog';
 import { WinModalComponent } from './game/components/win-modal/win-modal.component';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { WinModalComponent } from './game/components/win-modal/win-modal.compone
     MatButtonModule,
     MatGridListModule,
     MatDialogModule,
+    MatTooltipModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([StartGameEffect]),

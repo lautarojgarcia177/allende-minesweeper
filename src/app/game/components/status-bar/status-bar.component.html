@@ -1,16 +1,16 @@
-<div class="mt-1 container-fluid" style="width: 450px">
-  <div class="row">
+<div class="container mt-4 mb-1">
+  <div class="row align-items-center">
     <div class="col">
       <allende-minesweeper-clock></allende-minesweeper-clock>
     </div>
-    <div class="col">
+    <div class="col d-flex justify-content-center">
       <button
         mat-icon-button
         aria-label="start over"
-        style="font-size: 35px"
-        class="pb-5"
+        matTooltip="Click me to start again!"
         (click)="onStartGameOverClick()"
       >
+        <!-- I use *ngrxLet because *ngIf would hide both icons if isGameOver$ is falsy -->
         <ng-container *ngrxLet="isGameOver$ as isGameOver">
           <fa-icon *ngIf="!isGameOver" [icon]="smileIcon"></fa-icon>
           <fa-icon *ngIf="isGameOver" [icon]="faceDizzyIcon"></fa-icon>
@@ -18,7 +18,7 @@
       </button>
     </div>
     <div class="col">
-      <p>Rigth click to put a flag</p>
+      <fa-icon [icon]="flagIcon" matTooltip="Right click to put a flag"></fa-icon>
     </div>
   </div>
 </div>
