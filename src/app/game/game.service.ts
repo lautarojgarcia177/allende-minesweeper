@@ -123,7 +123,7 @@ export class GameService {
   }
 
   openWinDialog(): void {
-    const dialogRef = this.dialog.open(WinModalComponent, { data: { timeSpentInMilliseconds: 10} });
+    this.dialog.open(WinModalComponent);
   }
 
   checkIfWon(map: Array<Array<Cell>>): void {
