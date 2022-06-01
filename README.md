@@ -2,6 +2,8 @@
 
 Web implementation of the classic minesweeper game
 
+Live: https://lautarojgarcia177.github.io/allende-minesweeper/
+
 ## Technologies
 - Angular 13
 - NgRx
