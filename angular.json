@@ -112,6 +112,9 @@
           "options": {
             "browserTarget": "allende_buscaminas:build"
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

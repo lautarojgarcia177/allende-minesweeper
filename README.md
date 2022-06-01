@@ -30,4 +30,6 @@ Everytime the user clicks a cell, checkIfWon method in game.service.ts is called
 Code flow can be easily followed looking at the events that get triggered in board component.
 
 
+### About
+
 Made with 💌 by [Lautaro Garcia](https://github.com/lautarojgarcia177/lautarojgarcia177) for a code challenge in Cordoba's Allende Hospital
