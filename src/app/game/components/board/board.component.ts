@@ -1,16 +1,21 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ICoordinates } from "src/app/game/interfaces";
-import { Store } from '@ngrx/store';
-import * as actions from '../../../store/actions';
+import { Store } from "@ngrx/store";
+import * as actions from "../../../store/actions";
 import { Cell } from "../../classes";
-import { GameService } from '../../game.service';
+import { GameService } from "../../game.service";
+import { selectInitialMap } from "../../../store/selectors";
+import { Subscription } from "rxjs";
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: "allende-minesweeper-board",
   templateUrl: "./board.component.html",
   styleUrls: ["./board.component.scss"],
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
+  private map$ = this.store.select(selectInitialMap);
+  private mapSubscription: Subscription;
   map: Array<Array<Cell>>;
 
   isGameOver = false;
@@ -18,7 +23,13 @@ export class BoardComponent implements OnInit {
   constructor(private store: Store, private gameService: GameService) {}
 
   ngOnInit(): void {
-    
+    this.mapSubscription = this.map$.subscribe((map) => {
+      this.map = cloneDeep(map);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.mapSubscription.unsubscribe();
   }
 
   startGame(): void {
@@ -38,19 +49,19 @@ export class BoardComponent implements OnInit {
     }
     this.revealAdjacentNonMineCells(cell);
     // reveal adjacent cells of cells with no adjacent mines
-      for(let k = 0; k < 81; k ++) {
-        for (let i = 0; i < 9; i++) {
-          for (let j = 0; j < 9; j++) {
-            if (
-              this.map[i][j].isRevealed &&
-              this.map[i][j].adjacentMines === 0 &&
-              !this.map[i][j].isMine
-            ) {
-              this.revealAdjacentNonMineCells(this.map[i][j]);
-            }
+    for (let k = 0; k < 81; k++) {
+      for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+          if (
+            this.map[i][j].isRevealed &&
+            this.map[i][j].adjacentMines === 0 &&
+            !this.map[i][j].isMine
+          ) {
+            this.revealAdjacentNonMineCells(this.map[i][j]);
           }
         }
       }
+    }
   }
 
   revealAdjacentNonMineCells(cell: Cell): void {

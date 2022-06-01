@@ -3,7 +3,6 @@ import { faLandMineOn, faFlag } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectIsGameOver } from 'src/app/store/selectors';
-import { ICell } from '../../interfaces';
 import { Cell } from '../../classes';
 
 @Component({

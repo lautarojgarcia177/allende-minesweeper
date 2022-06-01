@@ -8,3 +8,7 @@ export const selectIsGameOver = createSelector(
     (state: State) => state.isGameOver
 );
 
+export const selectInitialMap = createSelector(
+    selectState,
+    (state: State) => state.initialMap
+)

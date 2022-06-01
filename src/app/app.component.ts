@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { startGameAction } from './store/actions';
 
 @Component({
   selector: 'allende-minesweeper-root',
@@ -10,6 +12,11 @@ import { Component } from '@angular/core';
   `,
   styles: []
 })
-export class AppComponent {
-  title = 'allende_buscaminas';
+export class AppComponent implements OnInit {
+
+  constructor(private store: Store) {}
+
+  ngOnInit(): void {
+      this.store.dispatch(startGameAction());
+  }
 }

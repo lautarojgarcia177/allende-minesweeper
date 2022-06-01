@@ -8,3 +8,8 @@ export const gameOverReducer = createReducer(
   on(actions.gameOverAction, (state, {}) => true),
   on(actions.startGameAction, (state, {}) => false),
 );
+
+export const initialMapReducer = createReducer(
+  initialState.initialMap,
+  on(actions.resetMapAction, (state, {map}) => map),
+);

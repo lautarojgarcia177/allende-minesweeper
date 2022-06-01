@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { tap } from "rxjs/operators";
+import { GameService } from '../game/game.service';
 
 @Injectable()
 export class StartGameEffect {
@@ -8,10 +9,10 @@ export class StartGameEffect {
     () =>
       this.actions$.pipe(
         ofType("StartGame"),
-        tap((action) => console.log(action))
+        tap((action) => this.gameService.startGame())
       ),
     { dispatch: false }
   );
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private gameService: GameService) {}
 }

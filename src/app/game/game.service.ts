@@ -1,14 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Cell } from './classes';
-import { ICell, ICoordinates } from './interfaces';
+import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Subject } from "rxjs";
+import { resetMapAction } from "../store/actions";
+import { Cell } from "./classes";
+import { ICell, ICoordinates } from "./interfaces";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class GameService {
+  startTimerSubject = new Subject();
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
+
+  startGame(): void {
+    const newMap = this.generateRandomMap();
+    this.store.dispatch(resetMapAction({ map: newMap }));
+    // Set timeout to give time for clock component to initialize before first subject emission
+    setTimeout(() => this.startTimerSubject.next({}));
+  }
 
   generateRandomMap(): Array<Array<Cell>> {
     // Generate cells
@@ -47,7 +57,6 @@ export class GameService {
     return randomMap;
   }
 
-  
   generateRandomCoordinates(): ICoordinates {
     return {
       x: Math.floor(Math.random() * 9),
@@ -110,6 +119,4 @@ export class GameService {
       adjacentMines++;
     return adjacentMines;
   }
-
-  
 }
