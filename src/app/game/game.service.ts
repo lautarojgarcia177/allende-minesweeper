@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { Subject } from "rxjs";
 import { resetMapAction } from "../store/actions";
 import { Cell } from "./classes";
 import { ICell, ICoordinates } from "./interfaces";
+import { WinModalComponent } from './components/win-modal/win-modal.component';
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +13,7 @@ import { ICell, ICoordinates } from "./interfaces";
 export class GameService {
   startTimerSubject = new Subject();
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, public dialog: MatDialog) {}
 
   startGame(): void {
     const newMap = this.generateRandomMap();
@@ -118,5 +120,9 @@ export class GameService {
     )
       adjacentMines++;
     return adjacentMines;
+  }
+
+  openWinDialog(): void {
+    const dialogRef = this.dialog.open(WinModalComponent, { data: { timeSpentInMilliseconds: 10} });
   }
 }

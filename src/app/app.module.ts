@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import * as components from './game/components';
 import { EffectsModule } from '@ngrx/effects';
 import { StartGameEffect } from './store/effects';
+import {MatDialogModule} from '@angular/material/dialog';
+import { WinModalComponent } from './game/components/win-modal/win-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { StartGameEffect } from './store/effects';
     components.BoardComponent,
     components.CellComponent,
     components.StatusBarComponent,
-    components.ClockComponent
+    components.ClockComponent,
+    WinModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +33,7 @@ import { StartGameEffect } from './store/effects';
     FontAwesomeModule,
     MatButtonModule,
     MatGridListModule,
+    MatDialogModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([StartGameEffect]),
