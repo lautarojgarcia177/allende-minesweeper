@@ -24,8 +24,8 @@ export class ClockComponent implements OnInit, OnDestroy {
         next: () => this.startCounting()
       }
     );
-    this.isGameOverSubscription = this.isGameOver$.subscribe(isGameOver => {
-      if (isGameOver) clearInterval(this.timeCountingInterval);
+    this.isGameOverSubscription = this.isGameOver$.subscribe(() => {
+      clearInterval(this.timeCountingInterval);
     })
   }
 
