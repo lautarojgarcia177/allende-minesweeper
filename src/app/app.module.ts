@@ -17,6 +17,7 @@ import * as components from './game/components';
 import { EffectsModule } from '@ngrx/effects';
 import { StartGameEffect } from './store/effects';
 import { WinModalComponent } from './game/components/win-modal/win-modal.component';
+import { GithubLinkComponent } from './miscelaneous/github-link/github-link.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WinModalComponent } from './game/components/win-modal/win-modal.compone
     components.CellComponent,
     components.StatusBarComponent,
     components.ClockComponent,
-    WinModalComponent
+    WinModalComponent,
+    GithubLinkComponent
   ],
   imports: [
     BrowserModule,

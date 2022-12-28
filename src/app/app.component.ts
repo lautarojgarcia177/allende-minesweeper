@@ -5,7 +5,8 @@ import { startGameAction } from './store/actions';
 @Component({
   selector: 'allende-minesweeper-root',
   template: `
-  <div class="d-flex flex-column justify-content-center">
+  <div class="d-flex flex-column justify-content-center" height="90vh">
+    <allende-minesweeper-github-link></allende-minesweeper-github-link>
     <allende-minesweeper-status-bar></allende-minesweeper-status-bar>
     <allende-minesweeper-board></allende-minesweeper-board>
   </div>
